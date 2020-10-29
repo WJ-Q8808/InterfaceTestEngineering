@@ -2,16 +2,17 @@
 #-------------------------------------------------------------------------------
 import pytest
 import requests
-
+from Config.loadconfig import config
 from Common.test_login import SetupApi
 
+
 @pytest.fixture(scope="module")
-def login_fixture():
+def login_fix():
     """
     前置条件，先登陆
-    :return:
     """
     SessionMechanism = requests.session()
-    ones_api = SetupApi("wujian@ones.ai","wujian8808","Core")
-    ones_api.
+    SetupApi.setup_login(SessionMechanism,config["EMAIL"],config["PASSWORD"],config["PRODUCT"])
     return SessionMechanism
+
+
