@@ -1,12 +1,14 @@
+from Config.loadconfig import ReadConfig
 import requests
-from Config.loadconfig import config
-requests_sessions = requests.session()
+import time
+
+config = ReadConfig("config.json").read_file()
 
 
 class SetupApi:
 
     def __init__(self):
-        pass
+        self.config = ReadConfig("config.json").read_file()
 
     def base_url(self,work_url,product="project",off_team_url=None):
         #封装URL
@@ -18,41 +20,35 @@ class SetupApi:
             public_url += "/team/{}{}".format(team_uuid,work_url) #"Sh1mfGBd"
             return public_url
 
+
     def setup_login(self,SessionMechanism,email,password,team_name=None):
+        # 登陆后，更新SessionMechanism，获取 team_uuid
         global team_uuid
         login_url = self.base_url("/auth/login", off_team_url="login")
-        data = {
-            "email": email,
-            "password": password
-        }
+        data = {"email": email, "password": password}
         response = SessionMechanism.post(url=login_url, json=data)
         response_json = response.json()
-        token = response_json["user"]["token"]
-        user_uuid = response_json["user"]["uuid"]
         headers_message = {
-            'referer': 'https://dev.myones.net/project/master/',
+            'referer': self.config["REFERER"],
             'Content-Type': 'application/json',
-            "Ones-Auth-Token": token,
-            "Ones-User-Id": user_uuid
+            "Ones-Auth-Token": response_json["user"]["token"],
+            "Ones-User-Id": response_json["user"]["uuid"]
         }
-        team_uuid = ""
+        #更新SessionMechanism头部
         SessionMechanism.headers.update(headers_message)
+        team_uuid = ""
         if team_name == None:
             team_uuid = response_json["teams"][0]["uuid"]
         else:
             team_uuid = "".join([j["uuid"] for j in response_json["teams"] if j["name"] == team_name])
 
-        return team_uuid
+        return response
 
 
-SetupApi = SetupApi()
-# SessionMechanism = requests.session()
-# SetupApi.setup_login(SessionMechanism,config["EMAIL"],config["PASSWORD"],config["PRODUCT"])
-# url=SetupApi.base_url(work_url="/items/graphql")
-# print(url)
-# if __name__ == '__main__':
-#     ones_api = SetupApi("wujian@ones.ai","wujian8808","Core")
-#     ones_api.get_graphql_products()
-#     ones_api.get_projects()
+if __name__ == '__main__':
+    SetupApi = SetupApi()
+    SessionMechanism = requests.session()
+    response = SetupApi.setup_login(SessionMechanism, config["EMAIL"], config["PASSWORD"], config["PRODUCT"])
+    time.time()
 
 

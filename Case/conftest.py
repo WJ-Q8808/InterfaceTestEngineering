@@ -2,9 +2,10 @@
 #-------------------------------------------------------------------------------
 import pytest
 import requests
-from Config.loadconfig import config
+from Config.loadconfig import ReadConfig
 from Common.test_login import SetupApi
 
+config = ReadConfig("config.json").read_file()
 
 @pytest.fixture(scope="module")
 def login_fix():

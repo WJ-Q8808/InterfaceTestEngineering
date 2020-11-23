@@ -1,6 +1,10 @@
 {
   "PRODUCT_URL": "https://devapi.myones.net/{}/master",
+  "REFERER": "https://dev.myones.net/project/master/",
   "PRODUCT": "Core",
   "EMAIL": "wujian@ones.ai",
   "PASSWORD": "wujian8808"
 }
+
+
+
