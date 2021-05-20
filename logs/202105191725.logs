@@ -1,0 +1,17 @@
+2021-05-19 17:25:00,830 - __main__ - INFO - Url:http://120.79.179.71/project/api/project/auth/login
+2021-05-19 17:25:00,831 - __main__ - INFO - body Json: {'email': 'wujian@ones.ai', 'password': 'wujian8808'} 
+2021-05-19 17:25:00,831 - __main__ - INFO - body params: None 
+2021-05-19 17:25:00,831 - __main__ - INFO - status_code : 200 
+2021-05-19 17:25:01,100 - __main__ - INFO - Url:https://dev.myones.net/project/master/api/project/auth/login
+2021-05-19 17:25:01,100 - __main__ - INFO - body Json: {'email': 'wujian@ones.ai', 'password': 'wujian8808'} 
+2021-05-19 17:25:01,100 - __main__ - INFO - body params: None 
+2021-05-19 17:25:01,100 - __main__ - INFO - status_code : 200 
+2021-05-19 17:25:01,215 - __main__ - INFO - Url:http://120.79.179.71/project/api/project/auth/token_info
+2021-05-19 17:25:01,216 - __main__ - INFO - body Json: None 
+2021-05-19 17:25:01,216 - __main__ - INFO - body params:  
+2021-05-19 17:25:01,216 - __main__ - INFO - status_code : 401 
+2021-05-19 17:25:01,217 - __main__ - INFO - Response:{'code': 401, 'errcode': 'AuthFailure.InvalidToken', 'reason': 'InvalidToken', 'type': 'AuthFailure'}
+2021-05-19 17:25:01,326 - __main__ - INFO - Url:https://dev.myones.net/project/master/api/project/auth/token_info
+2021-05-19 17:25:01,327 - __main__ - INFO - body Json: None 
+2021-05-19 17:25:01,327 - __main__ - INFO - body params:  
+2021-05-19 17:25:01,327 - __main__ - INFO - status_code : 200 

@@ -1,0 +1,12 @@
+{
+  "SPRINT_API_URL": "http://120.79.179.71/{main_product}/api/{minor_product}",
+  "DEV_API_URL": "https://dev.myones.net/{main_product}/master/api/{minor_product}",
+  "SPRINT_REFERER": "http://120.79.179.71/{}/",
+  "DEV_REFERER": "https://dev.myones.net/{}/master",
+  "PRODUCT": "Core",
+  "EMAIL": "wujian@ones.ai",
+  "PASSWORD": "wujian8808"
+}
+
+
+

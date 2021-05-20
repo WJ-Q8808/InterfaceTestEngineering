@@ -1,0 +1,5 @@
+2021-05-19 11:42:20,188 - __main__ - INFO - Url:http://120.79.179.71/project/api/project/auth/login
+2021-05-19 11:42:20,189 - __main__ - INFO - body Json: {'email': 'wujian@ones.ai', 'password': 'wujian8808'} 
+2021-05-19 11:42:20,189 - __main__ - INFO - body params: None
+2021-05-19 11:42:20,189 - __main__ - INFO - response text：{"code":400,"desc":"\u003cMalformed.JSON\u003e error at parsing json: unexpected end of JSON input","errcode":"Malformed.JSON","type":"Malformed"}
+

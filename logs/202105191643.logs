@@ -1,0 +1,16 @@
+2021-05-19 16:43:17,938 - __main__ - INFO - Url:http://120.79.179.71/project/api/project/auth/login
+2021-05-19 16:43:17,938 - __main__ - INFO - body Json: {'email': 'wujian@ones.ai', 'password': 'wujian8808'} 
+2021-05-19 16:43:17,938 - __main__ - INFO - body params: None 
+2021-05-19 16:43:17,938 - __main__ - INFO - status_code : 200 
+2021-05-19 16:43:18,243 - __main__ - INFO - Url:https://dev.myones.net/project/master/api/project/auth/login
+2021-05-19 16:43:18,258 - __main__ - INFO - body Json: {'email': 'wujian@ones.ai', 'password': 'wujian8808'} 
+2021-05-19 16:43:18,258 - __main__ - INFO - body params: None 
+2021-05-19 16:43:18,258 - __main__ - INFO - status_code : 200 
+2021-05-19 16:43:34,780 - __main__ - INFO - Url:http://120.79.179.71/project/api/project/auth/login
+2021-05-19 16:43:34,780 - __main__ - INFO - body Json: {'email': 'wujian@ones.ai', 'password': 'wujian8808'} 
+2021-05-19 16:43:34,783 - __main__ - INFO - body params: None 
+2021-05-19 16:43:34,783 - __main__ - INFO - status_code : 200 
+2021-05-19 16:43:35,139 - __main__ - INFO - Url:https://dev.myones.net/project/master/api/project/auth/login
+2021-05-19 16:43:35,139 - __main__ - INFO - body Json: {'email': 'wujian@ones.ai', 'password': 'wujian8808'} 
+2021-05-19 16:43:35,140 - __main__ - INFO - body params: None 
+2021-05-19 16:43:35,140 - __main__ - INFO - status_code : 200 
