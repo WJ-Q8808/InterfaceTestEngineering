@@ -1,0 +1,51 @@
+Graphql:
+  config:
+    name: "关于ONES系统登陆相关接口"
+    together:
+      url: &path_url "/team/{team_uuid}/items/graphql"
+      headers:
+        Ones-User-Id: "调用登陆user_uuid"
+        Ones-Auth-Token: "调用登陆token"
+        Referer: "https://your-host-name/{product}"
+    base_url: "https://your-host-name/{main_product}/api/{minor_product}"
+    base_url_product: &product
+      main_product: "project"
+      minor_product: "project"
+    verify: False
+
+api_type:
+  -
+    issueTypeLayouts:
+      notes: "根据issueType下uuid_equal的id，进行获取issueTypeLayouts信息"
+      name: "issueTypeLayouts"
+      is_login: True
+      path: *path_url
+      method: "post"
+      url_product:
+        <<: *product
+      get_parameter:
+        url_params: ""
+        body_params:
+          - body_value:
+              field_name: "uuid_equal"
+              get_path:
+                module: "stamps"
+                yaml_file: "issue_type.yaml"
+                yaml_api: "issue_type"
+                find_response_path: "issue_type/issue_types/{number}/uuid"
+      exclude_content:
+        # 根据选择的第三方库来确定里面的具体结构
+        fix_path:
+          - /issue_type/server_update_stamp
+        field:
+          - create_time
+          - uuid
+      json:
+        - variables:
+            filter:
+              issueType:
+                uuid_equal: "uuid_equal"
+            orderBy:
+              namePinyin: "ASC"
+          query: "{↵    issueTypeLayouts(filter:$filter,orderBy:$orderBy) {↵      ↵  key↵  uuid↵  name↵  builtIn↵  haveDraft↵  issueType {↵    uuid↵    name↵  }↵  issueTypeTemplate {↵    name↵    uuid↵  }↵  ↵↵    }↵  }"
+      params: ""

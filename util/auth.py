@@ -169,8 +169,8 @@ class Sprint_Evn():
         return self.TeamApi.is_team(config_url, config_referer, cached, api_data)
 
 
-
 class Dev_Evn():
+
     def __init__(self):
         self.TeamApi = TeamApi()
         self.dev_url = self.TeamApi.Auth.Base.config["DEV_API_URL"]

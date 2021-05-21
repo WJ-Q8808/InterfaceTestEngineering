@@ -1,0 +1,38 @@
+Stamps:
+  config:
+    name: "获取系统配置信息接口stamps"
+    together:
+      url: &path_url "/team/{team_uuid}/stamps/data"
+      headers:
+        Ones-User-Id: "调用登陆user_uuid"
+        Ones-Auth-Token: "调用登陆token"
+        Referer: "https://your-host-name/{product}"
+    base_url: "https://your-host-name/{main_product}/api/{minor_product}"
+    base_url_product: &product
+      main_product: "project"
+      minor_product: "project"
+    verify: False
+
+api_type:
+  -
+    issue_type:
+      notes: "根据stamps获取issue_type信息"
+      name: "issue_type"
+      is_login: True
+      path: *path_url
+      method: "post"
+      url_product:
+        <<: *product
+      get_parameter:
+        url_parameter: ""
+        body_parameter: ""
+      exclude_content:
+        # 根据选择的第三方库来确定里面的具体结构
+        fix_path:
+          - /issue_type/server_update_stamp
+        not_fix_path:
+          - create_time
+          - uuid
+      json:
+        - issue_type: 0
+      params: ""
