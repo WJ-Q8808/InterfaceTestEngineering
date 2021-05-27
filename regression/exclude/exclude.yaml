@@ -1,0 +1,7 @@
+exclude_content:
+  # 根据选择的第三方库来确定里面的具体结构
+  fix_path:
+    - /issue_type/server_update_stamp
+  field:
+    - create_time
+    - uuid

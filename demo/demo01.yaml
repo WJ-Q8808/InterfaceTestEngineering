@@ -1,0 +1,6 @@
+save:
+  - response_value:
+      res_path:
+      field:
+        - name: "uuid"
+          value_parth: "projects/0/uuid"

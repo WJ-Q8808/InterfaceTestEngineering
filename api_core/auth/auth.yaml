@@ -1,91 +1,89 @@
 Auth:
   config:
     name: "关于ONES系统登陆相关接口"
+    base_url: "https://your-host-name/{main_product}/api/{minor_product}"
     together:
+      base_url_product: &product
+        main_product: "project"
+        minor_product: "project"
       headers:
         Ones-User-Id: "调用登陆user_uuid"
         Ones-Auth-Token: "调用登陆token"
-        Referer: "https://your-host-name/{product}"
-    base_url: "https://your-host-name"
-    verify: False
+        referer: "https://your-host-name/{main_product}"
 
 api_type:
   -
-    login:
-      name: "登陆"
-      notes: "用户登录接口返回值中 token 用于其他 api 访问时的登录字段，token 没有过期时间，用户修改密码、被移出团队或者用户主动登出时会导致 token 失效。"
-      is_login: False
-      path: "/auth/login"
-      method: "post"
-      product:
-        main_product: "project"
-        minor_product: "project"
-      get_parameter:
-        url_parameter:
-          value_1:
-            value_name: ""
-            get_url_path:
-              module: "project/issue_type"
-              module_file: "issue_type.yaml"
-              yaml_api: "get_project"
-              find_field_path: ""
-          value_2: ""
-        body_parameter:
-          value_1:
-            value_name: ""
-            get_body_path:
-              module: "project/issue_type"
-              file: "issue_type.yaml"
-              yaml_api: ""
-              find_field_path: ""
-          value_2:
-            value_name: "project_uuid"
-            get_body_path:
-              module: "project/issue_type"
-              file: "issue_type.yaml"
-              yaml_api: ""
-              find_field_path: ""
-      exclude_field_path:
-        # 根据选择的第三方库来确定里面的具体结构
-        - organization/create_time
-        - organization/uuid
-      json:
-        - body_1:
-            email: "{email}"
-            password: "{password}"
-        - body_2:
-            password: "{password}"
-        - body_3:
-            email: "{email}"
-      params: ""
+    name: "login"
+    notes: "用户登录接口返回值中 token 用于其他 api 访问时的登录字段，token 没有过期时间，用户修改密码、被移出团队或者用户主动登出时会导致 token 失效。"
+    is_login: False
+    path: "/auth/login"
+    method: "post"
+    url_product:
+      <<: *product
+    url_params:
+      - is_params: False
+    json_params:
+      - is_params: True
+        value_path:
+          - key_name: "email"
+            field_path: "config/config.json"
+            yaml_api: "issue_type"
+            find_response_path: "issue_type/response/save/field_uuid"
+          - key_name: "password"
+            field_path: "config/config.json"
+            yaml_api: "issue_type"
+            find_response_path: "issue_type/response/save/field_uuid"
+        json:
+          email: "{email}"
+          password: "{password}"
+      - is_params: True
+        value_path:
+          - key_name: "email"
+            field_path: "config/config.json"
+            yaml_api: "issue_type"
+            find_response_path: "issue_type/response/save/field_uuid"
+        json:
+          email: "{email}"
+          password:
+      - is_params: False
+        value_path:
+        json:
+          email: ""
+          password: ""
+    params: ""
+    response:
+      status_code: 200
+      save:
+        - value:
+          value_name: "user_uuid"
+          value_parth: ""
+        user_uuid: "user_uuid"
+        token: "token"
   -
-    token_info:
-      name: "获取登陆信息"
-      notes: "登录后获取登录用户的信息(包括组织、团队信息，登录人员基本信息以及token)"
-      is_login: True
-      path: "/auth/token_info"
-      method: "get"
-      product:
-        main_product: "project"
-        minor_product: "project"
-      get_parameter: ""
-      json:
-        email: "{email}"
-        password: "{password}"
-      params: ""
-      exclude_field_path: ""
+    name: "token_info"
+    notes: "登录后获取登录用户的信息(包括组织、团队信息，登录人员基本信息以及token)"
+    is_login: True
+    path: "/auth/token_info"
+    method: "get"
+    url_product:
+      <<: *product
+    setup: ""
+    json: ""
+    params: ""
+    response:
+      status_code: 200
+      save:
+        token: "token"
   -
-    logout:
-      name: "获取用户信息"
-      notes: "登录后获取登录用户的信息(包括组织、团队信息，登录人员基本信息以及token)"
-      is_login: True
-      path: "/auth/logout"
-      url_other: ""
-      method: "get"
-      product:
-        main_product: "project"
-        minor_product: "project"
-      json: ""
-      params: ""
+    name: "logout"
+    notes: "登录后获取登录用户的信息(包括组织、团队信息，登录人员基本信息以及token)"
+    is_login: True
+    path: "/auth/logout"
+    method: "get"
+    url_product:
+      <<: *product
+    json: ""
+    params: ""
+    response: ""
 
 

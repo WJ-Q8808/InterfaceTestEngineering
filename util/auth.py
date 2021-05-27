@@ -10,7 +10,7 @@ import requests
 import threading
 from pprint import pprint
 from config.loadconfig import CustomConfig
-from paramsdata.loadyaml import ReadYaml
+from regression.loadyaml import ReadYaml
 
 from util.logger import Logger
 logger = Logger(logger=(__name__)).getlog()
@@ -76,16 +76,6 @@ class Base:
         }
         return self.ones_request(method, authed_url, config_referer,  main_product, minor_product, json, params, headers=headers)
 
-    def analyse_data(self, data_api):
-        method = data_api["method"]
-        path = data_api["path"]
-        product = data_api["product"]
-        main_product = product["main_product"]
-        minor_product = product["minor_product"]
-        json = data_api["json"]
-        params = data_api["params"]
-        return method, path, main_product, minor_product, json, params
-
 
 class AuthLogin:
 
@@ -96,8 +86,13 @@ class AuthLogin:
     def auth_login(self, config_url, config_referer, email, password):
         if not email or not password:
             raise RuntimeError('User or password is empty!')
-        res_data = data["api_type"][0]["login"]
-        method, path, main_product, minor_product, json, params = self.Base.analyse_data(res_data)
+        # res_data = data["api_type"][0]["login"]
+        # method, path, main_product, minor_product, json, params = self.Base.analyse_data(res_data)
+        method = "post"
+        path = "/auth/login"
+        main_product = "project"
+        minor_product = "project"
+
         json = {'email': email, 'password': password}
         response = self.Base.ones_authed_request(method, config_url, path, config_referer, main_product, minor_product, json=json)
         self.cached_date['token'] = response['user']['token']
@@ -188,23 +183,22 @@ class Dev_Evn():
         cached = self.dev_cached
         return self.TeamApi.is_team(config_url, config_referer, cached, api_data)
 
-
-class TestCase():
-    pass
-
+sprint = Sprint_Evn()
+dev = Sprint_Evn()
 
 
 
 
-if __name__ == '__main__':
-    data = ReadYaml.readyaml_file("body.yaml")[0]
-    res_data = data["api_type"][1]["token_info"]
 
-    Sprint_Evn = Sprint_Evn()
-    Dev_Evn = Dev_Evn()
-
-    Sprint_Evn.sprint_api(res_data)
-    Dev_Evn.dev_api(res_data)
+# if __name__ == '__main__':
+    # data = ReadYaml.readyaml_file("body.yaml")[0]
+    # res_data = data["api_type"][1]["token_info"]
+    #
+    # Sprint_Evn = Sprint_Evn()
+    # Dev_Evn = Dev_Evn()
+    #
+    # Sprint_Evn.sprint_api(res_data)
+    # Dev_Evn.dev_api(res_data)
 
     # ths = []
     # th_sprint = threading.Thread(target = TeamApi.sprint_api, args=(data))

@@ -1,0 +1,100 @@
+Auth:
+  config:
+    name: "关于操作迭代属性相关接口"
+    base_url: "https://your-host-name/{main_product}/api/{minor_product}"
+    together:
+      base_url_product: &product
+        main_product: "project"
+        minor_product: "project"
+      headers:
+        Ones-User-Id: "调用登陆user_uuid"
+        Ones-Auth-Token: "调用登陆token"
+        referer: "https://your-host-name/{main_product}"
+
+api_type:
+  -
+    name: "sprint_fields"
+    notes: "获取项目下迭代属性列表"
+    is_login: False
+    path: "/team/{team_uuid}/project/{project_uuid}/sprint_fields"
+    method: "get"
+    url_product:
+      <<: *product
+    url_params:
+      - is_params: True
+        value_path:
+          - field_path: "project/project.yaml"
+            api_name: "my_project"
+            field_number:
+              - field_name: "project_uuid"
+                find_response_path: "my_project/response/save/0/response_value/field/0/value_parth"
+    json_params:
+    params:
+    response:
+      status_code: 200
+      save:
+        - response_value:
+            res_path:
+              - name: "url_params"
+                path: "url_params/0/value_path"
+            field:
+              - name: "uuid"
+                value_parth: "fields/0/uuid"
+              - name: "name"
+                value_parth: "fields/0/name"
+              - name: "type"
+                value_parth: "fields/0/type"
+              - name: "default_value_type"
+                value_parth: "fields/0/type"
+              - name: "built_in"
+                value_parth: "fields/0/built_in"
+  -
+    name: "update_field"
+    notes: "修改项目下的迭代迭代属性"
+    is_login: True
+    path: "/team/{team_uuid}/project/{project_uuid}/sprint_field/{field_uuid}/update"
+    method: "post"
+    url_product:
+      <<: *product
+    url_params:
+      - is_params: True
+        value_path:
+          - field_path: "project/project.yaml"
+            api_name: "my_project"
+            field_number:
+              - field_name: "project_uuid"
+                find_response_path: "my_project/response/save/0/response_value/field/0/value_parth"
+          - field_path: "project/sprint_firld.yaml"
+            api_name: "sprint_fields"
+            field_number:
+              - field_name: "field_uuid"
+                find_response_path: "sprint_fields/response/save/0/response_value/field/0/value_parth"
+    json_params:
+      - is_params: True
+        value_path:
+          - field_path: "project/sprint_firld.yaml"
+            api_name: "sprint_fields"
+            field_number:
+              - field_name: "field_uuid"
+                find_response_path: "sprint_fields/response/save/0/response_value/field/0/value_parth"
+              - field_name: "field_name"
+                find_response_path: "sprint_fields/response/save/0/response_value/field/1/value_parth"
+              - field_name: "type"
+                find_response_path: "sprint_fields/response/save/0/response_value/field/2/value_parth"
+              - field_name: "default_value_type"
+                find_response_path: "sprint_fields/response/save/0/response_value/field/3/value_parth"
+              - field_name: "built_in"
+                find_response_path: "sprint_fields/response/save/0/response_value/field/4/value_parth"
+        json:
+          field:
+            uuid: "field_uuid"
+            name: "field_name"
+            type: "type"
+            default_value: ""
+            default_value_type: "default_value_type"
+            built_in: "built_in"
+            options: null
+            defaultValue: ""
+    params: ""
+    response:
+      status_code: 200

@@ -1,3 +1,5 @@
+includes:
+  - !include /cases/project/stamp/stamps_data/stage_stamps_data_field_200.yaml
 Auth:
   config:
     name: "关于ONES系统登陆相关接口"

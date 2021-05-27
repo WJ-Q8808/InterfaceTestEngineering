@@ -21,8 +21,9 @@ def find_json(data,find_str):
 
 
 if __name__ == '__main__':
-    test_data = ReadYaml.readyaml_file("../demo/demo.yaml")[0]["api_type"][0]
-    pprint(test_data)
+    test_data = ReadYaml.read_yaml("../demo/demo01.yaml")
+    print(test_data)
+
     # json = test_data["issueTypeLayouts"]["json"][0]
     # pprint(test_data)
     # # pprint(test1)

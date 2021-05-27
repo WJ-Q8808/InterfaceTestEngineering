@@ -1,92 +1,40 @@
 Layout:
   config:  # 关于yaml文档基础配置或相关说明信息
-    name: "关于Layout配置相关接口"
+    name: "获取系统配置信息接口stamps"
+    base_url: "https://your-host-name/{main_product}/api/{minor_product}"
     together:
+      url: &path_url "/team/{team_uuid}/stamps/data"
+      base_url_product: &product
+        main_product: "project"
+        minor_product: "project"
       headers:
         Ones-User-Id: "调用登陆user_uuid"
         Ones-Auth-Token: "调用登陆token"
-        Referer: "https://your-host-name/{product}"
-    base_url: "https://your-host-name/{main_product}/api/{minor_product}"
-    base_url_product: &product
-      main_product: "project"
-      minor_product: "project"
-    verify: False
+        referer: "https://your-host-name/{product}"
 
 api_type:   # 具体接口列表 key 固定模版
   -
-    issue_type_layout_update:    # 定义具体接口编写规范
-      notes: "切换Project配置中心下的工作项类型的视图应用，可选的视图总体分2种，本地和全局视图"
-      name: "issue_type_layout_update"   # 接口名称
-      is_login: False         # 是否需要登陆
-      path: "/team/{team_uuid}/issue_type/{issue_type_uuid}/layout/update"   # 接口路由
-      method: "post"          # 请求方式
-      url_product:            # 产品类型，某些情况下 wiki 和 project 同时存在，或者 全是wiki的情况
-        <<: *product
-      get_parameter:   # 接口中需要获取的参数（包含：path中 和 body中 ）
-        url_params:    # url 中需要的参数，以列表形式呈现
-          - url_value:   # 第一个参数
-              field_name: "issue_type_uuid"   # path中参数的名称与path中自定义一致
-              get_path:
-                module: "stamps"     # 该参数存在哪个模块下，多层嵌套下使用"/"分割，比如：stamps/stamp
-                yaml_file: "issue_type.yaml"   # 根据指定模块下的yaml文件名称名称
-                yaml_api: "issue_type"         # 根据指定yaml下的，具体接口
-                find_response_path: "issue_type/issue_types/{number}/uuid"
-          - url_value: ""   # 第二个url中的参数，可以写多个，如：project_uuid，同上面
-        body_params:        # body 中需要的参数，以列表形式呈现
-          - body_value:
-              field_name: "layout_uuid"   # json下，需要参数的key值
-              get_path:     # 同url 规则一致
-                module: "graphql"
-                yaml_file: "layout.yaml"
-                api_type: "issueTypeLayouts"
-                find_response_field: "data/issueTypeLayouts/{number}/uuid"
-      exclude_content:  # 根据选择的第三方库来确定里面的具体结构
-        fix_path:  # 指定路径 需要剔除的字段
-          - server_update_stamp
-        not_fix_path:     # 不指定路径，需要剔除的字段，如：多层级下的uuid / 多层级下 相同的uuid
-          - create_time
-          - uuid
-      json:   # 接口中的body，根据不同场景，以列表形式呈现
-        - layout_uuid: "layout_uuid"   # 场景一
-        - layout_uuid: ""              # 场景二
-      params: ""   # get请求下需要传递的参数，与json 传参同理
-  -
-    issue_type_scope_layout_update:
-      notes: "切换Project配置中心下的工作项类型的视图应用，可选的视图总体分2种，本地和全局视图，全局视图的可选范围为视图所属工作项类型为该工作项类型的视图。"
-      name: "issue_type_scope_layout_update"   # 接口名称
-      is_login: False         # 是否需要登陆
-      path: "/team/{team_uuid}/issue_type_scope/{issue_type_scope_uuid}/layout/update"   # 接口路由
-      method: "post"          # 请求方式
-      url_product: # 产品类型，某些情况下 wiki 和 project 同时存在，或者 全是wiki的情况
-        <<: *product
-      get_parameter: # 接口中需要获取的参数（包含：path中 和 body中 ）
-        url_params: # url 中需要的参数，以列表形式呈现
-          - url_value: # 第一个参数
-              field_name: "issue_type_uuid"   # path中参数的名称与path中自定义一致
-              get_path:
-                module: "stamps"     # 该参数存在哪个模块下，多层嵌套下使用"/"分割，比如：stamps/stamp
-                yaml_file: "issue_type.yaml"   # 根据指定模块下的yaml文件名称名称
-                yaml_api: "issue_type"         # 根据指定yaml下的，具体接口
-                find_response_path: "issue_type/issue_types/{number}/uuid"
-          - url_value: ""   # 第二个url中的参数，可以写多个，如：project_uuid，同上面
-        body_params: # body 中需要的参数，以列表形式呈现
-          - body_value:
-              field_name: "layout_uuid"   # json下，需要参数的key值
-              get_path: # 同url 规则一致
-                module: "stamps"
-                yaml_file: "issue_type.yaml"
-                yaml_api: "issue_type"
-                find_response_path: "issue_type/issue_types/{number}/default_configs/layout_uuid"
-      exclude_content: # 根据选择的第三方库来确定里面的具体结构
-        fix_path: # 指定路径 需要剔除的字段
-          - server_update_stamp
-        not_fix_path: # 不指定路径，需要剔除的字段，如：多层级下的uuid / 多层级下 相同的uuid
-          - create_time
-          - uuid
-      json: # 接口中的body，根据不同场景，以列表形式呈现
-        - layout_uuid: "layout_uuid"   # 场景一
-        - layout_uuid: ""              # 场景二
-      params: ""   # get请求下需要传递的参数，与json 传参同理
+    notes: "切换Project配置中心下的工作项类型的视图应用，可选的视图总体分2种，本地和全局视图"
+    name: "issue_type_layout_update"   # 接口名称
+    is_login: False         # 是否需要登陆
+    path: "/team/{team_uuid}/issue_type/{issue_type_uuid}/layout/update"   # 接口路由
+    method: "post"          # 请求方式
+    url_product:            # 产品类型，某些情况下 wiki 和 project 同时存在，或者 全是wiki的情况
+      <<: *product
+    url_params:
+      - is_params: True
+        value_path:
+          - key_name: "issue_type_uuid"
+            field_path: "stamps/issue_type.yaml"
+            yaml_api: "issue_type"
+            find_response_path: "issue_type/response/save/field_uuid"
+    json:   # 接口中的body，根据不同场景，以列表形式呈现
+      - layout_uuid: "layout_uuid"   # 场景一
+      - layout_uuid: ""              # 场景二
+    params: ""   # get请求下需要传递的参数，与json 传参同理
+    response:
+      status_code: 200
+
 
 
 

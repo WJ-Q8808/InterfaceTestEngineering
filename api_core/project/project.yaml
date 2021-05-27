@@ -1,0 +1,35 @@
+Auth:
+  config:
+    name: "关于操作项目配置接口"
+    base_url: "https://your-host-name/{main_product}/api/{minor_product}"
+    together:
+      base_url_product: &product
+        main_product: "project"
+        minor_product: "project"
+      headers:
+        Ones-User-Id: "调用登陆user_uuid"
+        Ones-Auth-Token: "调用登陆token"
+        referer: "https://your-host-name/{main_product}"
+
+api_type:
+  -
+    name: "my_project"
+    notes: "获取当前用户下工作项列表"
+    is_login: False
+    path: "team/{team_uuid}/projects/my_project"
+    method: "get"
+    url_product:
+      <<: *product
+    url_params:
+      - is_params: False
+    json_params:
+      - is_params: False
+    params: ""
+    response:
+      status_code: 200
+      save:
+        - response_value:
+            res_path:
+            field:
+              - name: "uuid"
+                value_parth: "projects/0/uuid"
